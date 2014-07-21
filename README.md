@@ -11,19 +11,20 @@ Basic Usage
 -----------
 
 To start, simply install with `pip install -r requirements.txt` under a Python 2.7.x environment.
+
 Then, run `python pywb-webrecorder.py`
 
-The `pywb-webrecorder.py` script will start an instance of pywb, warcprox and timed cdx index updater.
-
+The `pywb-webrecorder.py` script will start an instance of pywb, warcprox and timed cdx index updater. 
 pywb will be running on port 8080 and warcprox on port 9001 by default.
 
-warcprox will store warcs that it is recording (one at a time) into the **./recording/** dir. Once done, warcs
-will be moved to the **./done/** dir
+warcprox will store each WARC that is being written to (one at a time) into the **./recording/** directory. Once completed (or on shutdown), WARCs
+will be moved to the **./done/** directory.
 
 (All settings can be adjusted in [config.yaml](https://github.com/ikreymer/pywb-webrecorder/blob/master/config.yaml))
 
 
-The pywb web app running on port 8080 will have the following endpoints available
+The pywb web app running on port 8080 will have the following endpoints available:
+
 
 *  **/live/*url*** -- Fetch a live version of *url* (same as `live-rewrite-server` in pywb)
 
@@ -36,7 +37,7 @@ The pywb web app running on port 8080 will have the following endpoints availabl
  
 ### Archive On-Demand
 
-The **replay-record** endpoint demonstrates a new way to auto-record any missing resources from an existing archive.
+The **replay-record** endpoint demonstrates way to auto-record any missing resources from an existing archive.
 
 The first time a resource is requested, it will be recorded. On each subsequent request (after the cdx has been updated), it will be replayed from an existing WARC.
 
