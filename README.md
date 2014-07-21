@@ -10,7 +10,7 @@ For additional reference, please consult the pywb and warcprox docs.
 Basic Usage
 -----------
 
-To start, simply install with the usual `pip install -r requirements.txt`
+To start, simply install with `pip install -r requirements.txt` under a Python 2.7.x environment.
 Then, run `python pywb-webrecorder.py`
 
 The `pywb-webrecorder.py` script will start an instance of pywb, warcprox and timed cdx index updater.
@@ -25,22 +25,22 @@ will be moved to the **./done/** dir
 
 The pywb web app running on port 8080 will have the following endpoints available
 
-*  **/live/url** -- Fetch a live version of *url* (same as `live-rewrite-server` in pywb)
+*  **/live/*url*** -- Fetch a live version of *url* (same as `live-rewrite-server` in pywb)
 
-*  **/record/url** -- Fetch a live version of *url* but through warcprox recording proxy, recording all traffic.
+*  **/record/*url*** -- Fetch a live version of *url* but through warcprox recording proxy, recording all traffic.
 
-*  **/replay/url** -- Replay an archived version of *url* if found from `./recording` or `./done` dirs. Display 404 if not archived. Standard pywb Wayback behavior.
+*  **/replay/*url*** -- Replay an archived version of *url* if found from `./recording` or `./done` dirs. Display 404 if not archived. Standard pywb Wayback behavior.
 
-*  **/replay-record/url** -- Replay an archived version of *url* if found from `./recording` or `./done` dirs. If not available, internally call **/record/url** to record a new copy of *url*.  
+*  **/replay-record/*url*** -- Replay an archived version of *url* if found from `./recording` or `./done` dirs. If not available, internally call the **/record/** handler to record a new copy of *url*.  
 
  
-### Archive On Demand
+### Archive On-Demand
 
 The **replay-record** endpoint demonstrates a new way to auto-record any missing resources from an existing archive.
 
-The first time a resource is requested, it will be recorded. On each subsequent request, it will be replayed from the archive.
+The first time a resource is requested, it will be recorded. On each subsequent request (after the cdx has been updated), it will be replayed from an existing WARC.
 
-To indicate what is happening, the banner will indicate either *live fetch* or *archived page*.
+The banner will contain either **live fetch** or **archived page** to indicate whether the page was live or archived.
 
 
 How it Works
@@ -71,7 +71,8 @@ it is possible (and more efficient) to simply update an existing CDX index while
 
 pywb starts with two cdx files `./recording/index.cdx` and `./done/index.cdx`, which may be updated as new content is recorded.
 
-This `pywb-webrecorder.py` bootstrap script launches pywb and warcprox as subprocesses, then starts a periodic CDX updater.
+This `pywb-webrecorder.py` bootstrap script launches pywb and warcprox as subprocesses, then starts a periodic CDX updater, running
+every few seconds (configured by `update_freq` property in config.yaml)
 
 Of course, There are many ways to do this. For simplicity, the following approach is taken:
 
@@ -89,7 +90,7 @@ After graceful shutdown, the ./done/ dir should contain all the finished warcs a
 
 The config.yaml file contains the command lines for starting pywb and warcprox. Please refer to [warcprox README](https://github.com/internetarchive/warcprox/blob/master/README.rst) for command line options, such as changing the max WARC size or idle before rotating warcs, filenames, etc...
 
-uWSGI is used to run pywb but other WSGi containers can of course be used instead.
+uWSGI is used to run pywb but other WSGI containers can of course be used instead.
 
 #### A note on Dedup and Revisits
 
