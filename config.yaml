@@ -1,0 +1,57 @@
+# web recorder bootstrap (run-recorder.py) config settings
+# ========================================
+#
+recorder:
+    record_dir: &record_dir ./recording/
+    record_cdx: &record_cdx ./recording/index.cdx
+    
+    done_dir: &done_dir ./done/
+    done_cdx: &done_cdx ./done/index.cdx
+
+    dedup_db: ./dedup.db
+    proxy: &proxyhostport localhost:9001
+    update_freq: 5
+    
+    recorder_exec: 'warcprox -z -p 9001 -d ./recording/ -j ./dedup.db -n rec --certs-dir ./certs/ --base32 --cacert ./ca-cert.pem'
+    pywb_exec: 'uwsgi uwsgi.ini'
+
+
+# pywb config settings
+# ========================================
+#
+collections:
+
+    # /record/ end point, liveweb via recording proxy
+    record:
+        index_paths: $liveweb
+        proxyhostport: *proxyhostport
+
+    # /live/ end point, liveweb without proxy
+    live: $liveweb
+
+    # /replay/ end point, replay recorded content ONLY
+    # with fallback to record
+    replay: 
+        index_paths:
+            - *record_cdx
+            - *done_cdx
+
+        enable_cdx_api: true
+        enable_memento: true
+
+    # /replay-rec/ end point, replay recorded content AND
+    # auto-record anything that's missing
+    replay-record: 
+        index_paths:
+            - *record_cdx
+            - *done_cdx
+
+        fallback: record
+
+
+# Shared pywb settings
+archive_paths:
+    - *record_dir
+    - *done_dir
+
+framed_replay: true
