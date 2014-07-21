@@ -1,9 +1,11 @@
-Python Wayback Web Recording (Archiving)
-========================================
+Python Wayback Web Recorder (Archiver)
+======================================
 
 This project demonstrates how to create a simple web recorder tool by combining [pywb](https://github.com/ikreymer/pywb) (python wayback) web archive replay tools and [warcprox](github.com/internetarchive/warcprox) HTTP/S recording WARC proxy.
 
 For additional reference, please consult the pywb and warcprox docs.
+
+*For more reference, https://webrecorder.io is a hosted service built using some of the same tools. This project provides a bare-bones example of how to create a simple web recorder system*
 
 Basic Usage
 -----------
@@ -23,16 +25,22 @@ will be moved to the **./done/** dir
 
 The pywb web app running on port 8080 will have the following endpoints available
 
-*  **/live/<url>** -- Fetch a live version of <url> (same as `live-rewrite-server` in pywb)
+*  **/live/url** -- Fetch a live version of *url* (same as `live-rewrite-server` in pywb)
 
-*  **/record/<url>** -- Fetch a live version of <url> but through warcprox recording proxy, recording all traffic
+*  **/record/url** -- Fetch a live version of *url* but through warcprox recording proxy, recording all traffic.
 
-*  **/replay/<url>** -- Replay an archived version of <url> if found from `./recording` or `./done` dirs. Display 404 if not archived. Standard pywb Wayback behavior.
+*  **/replay/url** -- Replay an archived version of *url* if found from `./recording` or `./done` dirs. Display 404 if not archived. Standard pywb Wayback behavior.
 
-*  **/replay-record/<url>** -- Replay an archived version of <url> if found from `./recording` or `./done` dirs. If not available, fall back on **/record/<url>**, recording a new copy of <url>
+*  **/replay-record/url** -- Replay an archived version of *url* if found from `./recording` or `./done` dirs. If not available, internally call **/record/url** to record a new copy of *url*.  
 
+ 
+### Archive On Demand
 
-The **replay-record** endpoint demonstrates a way to auto-record any missing resources from an existing archive.
+The **replay-record** endpoint demonstrates a new way to auto-record any missing resources from an existing archive.
+
+The first time a resource is requested, it will be recorded. On each subsequent request, it will be replayed from the archive.
+
+To indicate what is happening, the banner will indicate either *live fetch* or *archived page*.
 
 
 How it Works
