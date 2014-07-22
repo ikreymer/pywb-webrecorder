@@ -54,4 +54,8 @@ archive_paths:
     - *record_dir
     - *done_dir
 
+# Custom html templates
+home_html: ./html/index.html
+error_html: ./html/error.html
+
 framed_replay: true

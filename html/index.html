@@ -1,0 +1,81 @@
+<html>
+<head>
+<style>
+body {
+    font-family: sans-serif;
+}
+li {
+    margin-bottom: 12px;
+}
+form {
+    display: inline;
+}
+input[type=text] {
+    width: 400px;
+    font-size: 18px;
+}
+.coll {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 4px;
+}
+</style>
+<script>
+function load_url(form)
+{
+    if (!form || !form.firstElementChild) {
+        return false;
+    }
+    
+    var textbox = form.firstElementChild;
+    
+    if (textbox.value) {
+        window.location.href = "/" + textbox.id + "/" + textbox.value;
+    }
+    
+    return false;
+}
+</script>
+
+</head>
+<body>
+<h1>pywb Wayback Web Recorder Demo</h1>
+<ul>
+<li>
+<span class="coll">/live/</span>
+<form onsubmit="return load_url(this)">
+<input id="live" name="live" type="text" placeholder="url" />
+<input type="submit" value="Go"/>
+</form>
+<div class="info">Fetch a live version of <i>url</i></div>
+</li>
+<li>
+<span class="coll">/record/</span>
+<form onsubmit="return load_url(this)">
+<input id="record" name="record" type="text" placeholder="url" />
+<input type="submit" value="Go"/>
+</form>
+<div class="info">Fetch a live version of <i>url</i> but through warcprox recording proxy, recording all traffic.</div>
+</li>
+<li>
+<span class="coll">/replay/</span>
+<form onsubmit="return load_url(this)">
+<input id="replay" name="replay" type="text" placeholder="url" />
+<input type="submit" value="Go"/>
+</form>
+<div class="info">Replay an archived version of <i>url</i>. If not found, show missing url error.</div>
+</li>
+<li>
+<span class="coll">/replay-record/</span>
+<form onsubmit="return load_url(this)">
+<input id="replay-record" name="replay-record" type="text" placeholder="url" />
+<input type="submit" value="Go"/>
+</form>
+<div class="info">Replay an archived version of <i>url</i>, If not found, internally call the <b>/record/</b> handler to fetch and record a copy.</div>
+</li>
+</ul>
+<br/>
+<i>See <a href="https://github.com/ikreymer/pywb-webrecorder">https://github.com/ikreymer/pywb-webrecorder</a> for more info and latest updates.</i>
+</body>
+</html>
+
