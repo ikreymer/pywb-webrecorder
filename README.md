@@ -1,9 +1,9 @@
-Python Wayback Web Recorder (Archiver)
+pywb Wayback Web Recorder (Archiver)
 ======================================
 
 This project provides a bare-bones example of how to create a simple web recording and replay system.
 
-This project demonstrates how to create a simple web recorder tool by combining [pywb](https://github.com/ikreymer/pywb) (python wayback) web archive replay tools and [warcprox](github.com/internetarchive/warcprox) HTTP/S recording WARC proxy.
+This project demonstrates how to create a simple web recorder tool by combining [pywb](https://github.com/ikreymer/pywb) (python wayback) web archive replay tools and [warcprox](https://github.com/internetarchive/warcprox) HTTP/S recording WARC proxy.
 
 For additional reference, please consult the pywb and warcprox docs.
 
@@ -96,7 +96,9 @@ The config.yaml file contains the command lines for starting pywb and warcprox. 
 
 uWSGI is used to run pywb but other WSGI containers can of course be used instead.
 
-The config also demonstrates use of custom home page and error pages with pywb. [index.html](https://github.com/ikreymer/pywb-webrecorder/blob/master/html/index.html) is a custom home page for this webapp while [error.html](https://github.com/ikreymer/pywb-webrecorder/blob/master/html/error.html) modifies the standard pywb error page to also include an explicit `/record/` link for not found errors (only makes sense when using **/replay/** endpoint).
+The config also demonstrates use of custom home page and error pages with pywb:
+* [index.html](https://github.com/ikreymer/pywb-webrecorder/blob/master/html/index.html) is a simple custom home page for pywb-webrecorder
+* [error.html](https://github.com/ikreymer/pywb-webrecorder/blob/master/html/error.html) modifies the standard pywb error page to also include an explicit **/record/** link for 'not found' errors (only makes sense when using **/replay/** endpoint).
 
 #### A note on Dedup and Revisits
 
