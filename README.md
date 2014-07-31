@@ -92,7 +92,14 @@ After graceful shutdown, the ./done/ dir should contain all the finished warcs a
 
 ### Other Settings
 
-The config.yaml file contains the command lines for starting pywb and warcprox. Please refer to [warcprox README](https://github.com/internetarchive/warcprox/blob/master/README.rst) for command line options, such as changing the max WARC size or idle before rotating warcs, filenames, etc...
+The config.yaml file contains the command line settings for starting pywb and warcprox. Please refer to [warcprox README](https://github.com/internetarchive/warcprox/blob/master/README.rst) for command line options, such as changing the max WARC size or idle before rotating warcs, filenames, etc...
+
+The max WARC size and max idle time options may be especially useful for adjusting how long a WARC file remains open and when it is moved
+to `./done/` directory.
+
+For instance, to set a WARC file to be considered done when no new content has been recorded for 60 seconds OR when size exceeds 1Kb, the
+`recorder_exec` setting in the config can be modified as follows: `recorder_exec: 'warcprox --rollover-idle-time 60 -s 1000 ...`
+
 
 uWSGI is used to run pywb but other WSGI containers can of course be used instead.
 

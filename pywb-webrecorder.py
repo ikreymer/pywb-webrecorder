@@ -129,6 +129,7 @@ class CDXUpdater(object):
         # if no curr_open_warc, find one
         if not self.curr_open_warc:
             if not self.find_open_warc_and_move_done():
+                self.clear_cdx(self.record_cdx)
                 return
 
         try:
@@ -137,11 +138,13 @@ class CDXUpdater(object):
             # if error checking curr_open_warc, see if its been
             # closed and a new one is now open
             if not self.find_open_warc_and_move_done():
+                self.clear_cdx(self.record_cdx)
                 return
 
             try:
                 modtime = os.path.getmtime(self.curr_open_warc)
             except:
+                self.clear_cdx(self.record_cdx)
                 return
 
         # if modified time same as last time, nothing to update
@@ -162,6 +165,14 @@ class CDXUpdater(object):
             # if no open warcs left, remove the record cdx
             # (since warc now moved to done)
             os.remove(self.record_cdx)
+
+    def clear_cdx(self, output_cdx):
+        """
+        Empty the cdx file to clear old records
+        (Can't delete as it is being looked up)
+        """
+        with open(output_cdx, 'w') as fh:
+            pass
 
     def index_cdx(self, output_cdx, input_):
         """
