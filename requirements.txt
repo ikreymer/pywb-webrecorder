@@ -1,4 +1,3 @@
 pywb
-git+git://github.com/internetarchive/warcprox.git@master
-#warcprox==1.1
+warcprox==1.2
 uwsgi==2.0.6
