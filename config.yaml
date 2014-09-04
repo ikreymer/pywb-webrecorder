@@ -9,7 +9,7 @@ recorder:
     done_cdx: &done_cdx ./done/index.cdx
 
     dedup_db: ./dedup.db
-    proxy: &proxyhostport localhost:9001
+    proxy: &proxyhostport http://localhost:9001
     update_freq: 5
     
     recorder_exec: 'warcprox -z -p 9001 -d ./recording/ -j ./dedup.db -n rec --certs-dir ./certs/ --base32 --cacert ./ca-cert.pem'
