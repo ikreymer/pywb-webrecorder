@@ -1,3 +1,3 @@
-pywb
+git+git://github.com/ikreymer/pywb.git@develop#egg=pywb-0.6.1
 warcprox==1.2
 uwsgi==2.0.6
