@@ -25,9 +25,12 @@ collections:
     record:
         index_paths: $liveweb
         proxyhostport: *proxyhostport
+        cookie_scope: root
 
     # /live/ end point, liveweb without proxy
-    live: $liveweb
+    live:
+        index_paths: $liveweb
+        cookie_scope: root
 
     # /replay/ end point, replay recorded content ONLY
     # with fallback to record
