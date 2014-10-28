@@ -61,6 +61,6 @@ archive_paths:
 home_html: ./html/index.html
 error_html: ./html/error.html
 
-framed_replay: false
+framed_replay: true
 enable_memento: false
 
