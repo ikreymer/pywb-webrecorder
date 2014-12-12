@@ -4,15 +4,15 @@
 recorder:
     record_dir: &record_dir ./recording/
     record_cdx: &record_cdx ./recording/index.cdx
-    
+
     done_dir: &done_dir ./done/
     done_cdx: &done_cdx ./done/index.cdx
 
     dedup_db: ./dedup.db
     proxy: &proxyhostport http://localhost:9001
     update_freq: 5
-    
-    recorder_exec: 'warcprox -z -p 9001 -d ./recording/ -j ./dedup.db -n rec --certs-dir ./certs/ --base32 --cacert ./ca-cert.pem'
+
+    recorder_exec: 'warcprox -z -p 9001 -d ./recording/ -j ./dedup.db --read-buff-size 1000000 -n rec --certs-dir ./certs/ --base32 --cacert ./ca-cert.pem'
     pywb_exec: 'uwsgi uwsgi.ini'
 
 
@@ -31,10 +31,13 @@ collections:
     live:
         index_paths: $liveweb
         cookie_scope: root
+        rewrite_opts:
+            rewrite_base: false
+            rewrite_rel_canon: false
 
     # /replay/ end point, replay recorded content ONLY
     # with fallback to record
-    replay: 
+    replay:
         index_paths:
             - *record_cdx
             - *done_cdx
@@ -44,7 +47,7 @@ collections:
 
     # /replay-rec/ end point, replay recorded content AND
     # auto-record anything that's missing
-    replay-record: 
+    replay-record:
         index_paths:
             - *record_cdx
             - *done_cdx
@@ -61,6 +64,5 @@ archive_paths:
 home_html: ./html/index.html
 error_html: ./html/error.html
 
-framed_replay: true
+framed_replay: false
 enable_memento: false
-
