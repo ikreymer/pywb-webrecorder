@@ -1,3 +1,4 @@
-git+git://github.com/ikreymer/pywb.git@video#egg=pywb-0.7.0
+#git+git://github.com/ikreymer/pywb.git@video#egg=pywb-0.7.0
+pywb>=0.7.0
 git+git://github.com/ikreymer/warcprox.git@dev.putmeta
 uwsgi==2.0.6
