@@ -55,6 +55,10 @@ collections:
         fallback: record
 
 
+verify_ssl: false
+live-cookie: false
+
+
 # Shared pywb settings
 archive_paths:
     - *record_dir
@@ -64,5 +68,5 @@ archive_paths:
 home_html: ./html/index.html
 error_html: ./html/error.html
 
-framed_replay: false
+framed_replay: true
 enable_memento: false
