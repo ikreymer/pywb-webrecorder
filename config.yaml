@@ -32,7 +32,7 @@ collections:
         index_paths: $liveweb
         cookie_scope: root
         rewrite_opts:
-            rewrite_base: false
+            rewrite_base: true
             rewrite_rel_canon: false
 
     # /replay/ end point, replay recorded content ONLY
