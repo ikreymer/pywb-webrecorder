@@ -12,7 +12,7 @@ recorder:
     proxy: &proxyhostport http://localhost:9001
     update_freq: 5
 
-    recorder_exec: 'warcprox -z -p 9001 -d ./recording/ -j ./dedup.db --read-buff-size 1000000 -n rec --certs-dir ./certs/ --base32 --cacert ./ca-cert.pem'
+    recorder_exec: 'warcprox -z -p 9001 -d ./recording/ --rollover-idle-time 60 -j ./dedup.db --read-buff-size 1000000 -n rec --certs-dir ./certs/ --base32 --cacert ./ca-cert.pem'
     pywb_exec: 'uwsgi uwsgi.ini'
 
 
@@ -68,5 +68,5 @@ archive_paths:
 home_html: ./html/index.html
 error_html: ./html/error.html
 
-framed_replay: true
+framed_replay: false
 enable_memento: false

@@ -6,6 +6,7 @@ from datetime import datetime
 import time
 import atexit
 import itertools
+import signal
 
 from pywb.warc import cdxindexer
 from argparse import ArgumentParser
@@ -246,6 +247,13 @@ def main():
 
     # start pywb subproc
     pywbp = SubProcess(config['pywb_exec'])
+
+    def cleanup_subp(signum, frame):
+        pywbp.cleanup()
+        recorderp.cleanup()
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, cleanup_subp)
 
     update_freq = int(config.get('update_freq', 1))
 
