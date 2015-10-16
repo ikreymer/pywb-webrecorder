@@ -1,6 +1,8 @@
 pywb Wayback Web Recorder (Archiver)
 ======================================
 
+**Note: this is an older prototype. We suggest taking a look at https://github.com/webrecorder/webrecorder, the Docker deployment for https://webrecorder.io/ which includes improved features and will be more maintained than this prototype**
+
 This project provides a bare-bones example of how to create a simple web recording and replay system.
 
 This project demonstrates how to create a simple web recorder tool by combining [pywb](https://github.com/ikreymer/pywb) (python wayback) web archive replay tools and [warcprox](https://github.com/internetarchive/warcprox) HTTP/S recording WARC proxy.
